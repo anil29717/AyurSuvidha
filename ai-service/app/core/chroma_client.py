@@ -21,7 +21,7 @@ def get_collection(name: str = DEFAULT_COLLECTION) -> Collection:
     client = get_client()
     return client.get_or_create_collection(
         name=name,
-        metadata={"description": "Ayurvedic texts and protocols for AyurAI"},
+        metadata={"description": "Ayurvedic texts and protocols for AyuSuvidha"},
     )
 
 

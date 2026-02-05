@@ -1,25 +1,60 @@
-## AyurAI - Ayurvedic Intelligence Assistant
+# AyuSuvidha - Ayurvedic Intelligence Assistant
 
-Monorepo for an enterprise-grade Ayurvedic AI chatbot with:
-- React 18 + TypeScript frontend (port 2020)
-- Express.js + TypeScript backend (port 2021)
-- FastAPI + Python AI/RAG service (port 2022)
+AyuSuvidha is an AI-powered Ayurvedic health assistant that provides personalized wellness recommendations based on classical Ayurvedic texts (Charaka Samhita, Sushruta Samhita, etc.) using RAG (Retrieval Augmented Generation).
 
-### Structure
+## Features
+- **AI Chatbot**: Ask questions about Doshas, remedies, and lifestyle.
+- **RAG Knowledge Base**: Upload PDF/Text documents to expand AyuSuvidha's knowledge.
+- **Admin Dashboard**: Manage users, view system logs, and monitor analytics.
+- **Real-time Updates**: Live notifications and status tracking.
 
-- `frontend/` - React app (chat UI, landing, admin dashboard)
-- `backend/` - Node/Express API (auth, chats, documents, admin, monitoring)
-- `ai-service/` - FastAPI service (embeddings, RAG, Gemini integration)
+## Tech Stack
+- **Frontend**: React, TypeScript, Tailwind CSS, Vite
+- **Backend**: Node.js, Express, MongoDB, Redis
+- **AI Service**: Python, FastAPI, ChromaDB, Gemini/Groq LLM
 
-### Getting Started
+## Getting Started
 
-1. Install dependencies in each subfolder:
-   - `cd frontend && npm install`
-   - `cd backend && npm install`
-   - `cd ai-service && pip install -r requirements.txt`
+### Prerequisites
+- Node.js & npm
+- Python 3.10+
+- MongoDB (Atlas or Local)
+- Redis (Cloud or Local)
+- Google Gemini or Groq API Key
 
-2. Run services (example):
-   - Frontend: `npm run dev` on port 2020
-   - Backend: `npm run dev` on port 2021
-   - AI Service: `uvicorn app.main:app --reload --port 2022`
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/ayusuvidha.git
+   cd ayusuvidha
+   ```
+
+2. **Backend Setup**
+   ```bash
+   cd backend
+   npm install
+   # Create .env file with your credentials
+   npm run dev
+   ```
+
+3. **Frontend Setup**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+4. **AI Service Setup**
+   ```bash
+   cd ai-service
+   python -m venv venv
+   source venv/bin/activate # or .\venv\Scripts\Activate on Windows
+   pip install -r requirements.txt
+   # Create .env file with GEMINI_API_KEY
+   uvicorn app.main:app --reload --port 8000
+   ```
+
+## License
+MIT
 

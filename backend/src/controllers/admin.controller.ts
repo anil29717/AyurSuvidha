@@ -94,3 +94,43 @@ export async function getAuditLogs(req: Request, res: Response, next: NextFuncti
   }
 }
 
+export async function getAnalytics(req: Request, res: Response, next: NextFunction) {
+  try {
+    const [totalUsers, totalMessages, totalAudits] = await Promise.all([
+      User.countDocuments(),
+      Message.countDocuments(),
+      AuditLog.countDocuments()
+    ]);
+
+    // Aggregate AuditLogs for last 7 days
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const activityTrend = await AuditLog.aggregate([
+      { $match: { timestamp: { $gte: sevenDaysAgo } } },
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$timestamp" } },
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
+
+    // Format for frontend chart
+    const chartData = activityTrend.map(item => ({
+      date: item._id,
+      requests: item.count
+    }));
+
+    res.json({
+      totalUsers,
+      totalMessages,
+      totalAudits,
+      chartData
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+

@@ -38,7 +38,8 @@ export function RegisterPage() {
       dispatch(setAuth({ 
         isAuthenticated: true, 
         role: user.role, 
-        user
+        userId: user.id,
+        displayName: user.name
       }));
       navigate('/chat');
     } catch (err: any) {
@@ -66,7 +67,7 @@ export function RegisterPage() {
 
         <h1 className="text-2xl font-serif font-bold text-center text-ayur-dark mb-2">Create Your Account</h1>
         <p className="text-sm text-ayur-muted text-center mb-8">
-          Begin your journey to holistic wellness with AyurAI.
+          Begin your journey to holistic wellness with AyuSuvidha.
         </p>
         
         {error && (

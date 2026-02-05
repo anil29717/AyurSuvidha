@@ -30,7 +30,7 @@ const SUGGESTED_QUESTIONS = [
 export function ChatPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.auth.user);
+  const userId = useAppSelector((state) => state.auth.userId);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isConnected, setIsConnected] = useState(false);
@@ -105,7 +105,7 @@ export function ChatPage() {
     // Emit message to server
     socket.emit('send_message', {
       content: userMessage.content,
-      userId: user?.id
+      userId: userId
     });
   };
 
@@ -122,16 +122,16 @@ export function ChatPage() {
 
   return (
     <div className="min-h-screen bg-ayur-bg font-body flex flex-col">
-      <header className="bg-white border-b border-gray-100 py-4 px-6 shadow-sm flex items-center justify-between sticky top-0 z-10">
+      <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-ayur-gradient rounded-full flex items-center justify-center text-white shadow-md">
             <FaLeaf />
           </div>
           <div>
-            <h1 className="font-heading font-bold text-ayur-dark text-lg">AyurAI Assistant</h1>
-            <div className="flex items-center gap-2 text-xs text-ayur-muted">
-              <span className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-              {isConnected ? 'Online' : 'Connecting...'}
+            <h1 className="font-heading font-bold text-ayur-dark text-lg leading-tight">AyuSuvidha Assistant</h1>
+            <div className="flex items-center gap-2 text-xs text-green-600">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span>Online & Ready</span>
             </div>
           </div>
         </div>
@@ -151,12 +151,15 @@ export function ChatPage() {
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-ayur-light/30">
             {messages.length === 0 && (
-              <div className="h-full flex flex-col items-center justify-center text-ayur-muted opacity-60">
-                <FaLeaf className="text-6xl mb-4 text-ayur-primary/20" />
-                <p className="mb-6">Start your holistic health journey...</p>
-                
-                {/* Suggested Questions */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-lg">
+              <div className="text-center p-8 bg-white rounded-2xl shadow-sm border border-gray-100 max-w-md mx-auto mt-20">
+                <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 text-2xl">
+                  <FaLeaf />
+                </div>
+                <h3 className="text-lg font-bold text-ayur-dark mb-2">Welcome to AyuSuvidha</h3>
+                <p className="text-sm text-gray-500 mb-6">
+                  Your personal Ayurvedic health companion. Ask about doshas, remedies, or upload texts for analysis.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
                   {SUGGESTED_QUESTIONS.map((q, i) => (
                     <button 
                       key={i}
@@ -266,7 +269,7 @@ export function ChatPage() {
               </div>
             </form>
             <p className="text-[10px] text-center text-ayur-muted mt-3">
-              AyurAI provides wellness suggestions based on texts. Consult a doctor for medical issues.
+              AyuSuvidha provides wellness suggestions based on texts. Consult a doctor for medical issues.
             </p>
           </div>
         </div>

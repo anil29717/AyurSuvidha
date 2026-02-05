@@ -8,7 +8,7 @@ export function LandingPage() {
       <header className="px-8 py-6 flex items-center justify-between bg-white shadow-sm">
         <div className="flex items-center gap-2">
            <FaLeaf className="text-ayur-primary text-2xl" />
-           <div className="font-heading font-bold text-xl tracking-wide text-ayur-dark">AyurAI</div>
+           <div className="font-heading font-bold text-xl tracking-wide text-ayur-dark">AyuSuvidha</div>
         </div>
         <div className="space-x-4">
           <Link to="/login" className="px-5 py-2 rounded-full border border-ayur-primary text-ayur-primary font-semibold hover:bg-ayur-primary hover:text-white transition">
@@ -85,8 +85,8 @@ export function LandingPage() {
 
       </main>
       
-      <footer className="bg-white border-t border-gray-100 py-8 text-center text-sm text-ayur-muted">
-        <p>&copy; {new Date().getFullYear()} AyurAI. Harmonizing technology with nature.</p>
+      <footer className="bg-ayur-dark text-white py-8 text-center text-sm">
+        <p>&copy; {new Date().getFullYear()} AyuSuvidha. Bridging ancient wisdom with modern technology.</p>
       </footer>
     </div>
   );

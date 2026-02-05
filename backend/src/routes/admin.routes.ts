@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getSystemStatus, getAllUsers, updateUserRole, getChatLogs, getAuditLogs } from '../controllers/admin.controller';
+import { getSystemStatus, getAllUsers, updateUserRole, getChatLogs, getAuditLogs, getAnalytics } from '../controllers/admin.controller';
 import { listDocuments, deleteDocument } from '../controllers/upload.controller';
 
 export const adminRouter = Router();
@@ -12,4 +12,5 @@ adminRouter.get('/docs', listDocuments);
 adminRouter.delete('/docs/:id', deleteDocument);
 adminRouter.get('/logs', getChatLogs);
 adminRouter.get('/audit', getAuditLogs);
+adminRouter.get('/analytics', getAnalytics);
 

@@ -541,29 +541,77 @@ function SystemLogs() {
   );
 }
 
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
 function Analytics() {
+  const [data, setData] = useState<{
+    totalUsers: number;
+    totalMessages: number;
+    totalAudits: number;
+    chartData: any[];
+  } | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchAnalytics = async () => {
+    setLoading(true);
+    try {
+      const res = await apiClient.get('/admin/analytics');
+      setData(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, []);
+
   return (
     <div>
-      <h2 className="text-xl font-semibold text-ayur-dark mb-6">Analytics</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold text-ayur-dark">System Analytics</h2>
+        <button onClick={fetchAnalytics} className="text-sm text-ayur-primary hover:underline">Refresh</button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl shadow border border-gray-100">
-           <h3 className="text-gray-500 text-xs uppercase font-bold tracking-wider">Total Requests</h3>
-           <p className="text-3xl font-bold text-ayur-primary mt-2">1,284</p>
-           <p className="text-green-500 text-xs mt-1">↑ 12% from yesterday</p>
+           <h3 className="text-gray-500 text-xs uppercase font-bold tracking-wider">Total Users</h3>
+           <p className="text-3xl font-bold text-ayur-primary mt-2">{loading ? '...' : data?.totalUsers}</p>
+           <p className="text-green-500 text-xs mt-1">Registered accounts</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow border border-gray-100">
-           <h3 className="text-gray-500 text-xs uppercase font-bold tracking-wider">Avg Response Time</h3>
-           <p className="text-3xl font-bold text-purple-600 mt-2">245ms</p>
-           <p className="text-gray-400 text-xs mt-1">Stable</p>
+           <h3 className="text-gray-500 text-xs uppercase font-bold tracking-wider">Total Messages</h3>
+           <p className="text-3xl font-bold text-purple-600 mt-2">{loading ? '...' : data?.totalMessages}</p>
+           <p className="text-gray-400 text-xs mt-1">Chats exchanged</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow border border-gray-100">
-           <h3 className="text-gray-500 text-xs uppercase font-bold tracking-wider">Error Rate</h3>
-           <p className="text-3xl font-bold text-red-500 mt-2">0.2%</p>
-           <p className="text-green-500 text-xs mt-1">↓ 0.1% from last week</p>
+           <h3 className="text-gray-500 text-xs uppercase font-bold tracking-wider">System Actions</h3>
+           <p className="text-3xl font-bold text-blue-500 mt-2">{loading ? '...' : data?.totalAudits}</p>
+           <p className="text-green-500 text-xs mt-1">Audit logs recorded</p>
         </div>
       </div>
-      <div className="bg-white p-6 rounded-xl shadow border border-gray-100 h-64 flex items-center justify-center text-gray-400">
-        Chart placeholder (integrate Recharts or Chart.js here)
+
+      <div className="bg-white p-6 rounded-xl shadow border border-gray-100 h-80">
+        <h3 className="text-sm font-semibold text-gray-700 mb-4">Activity Trend (Last 7 Days)</h3>
+        {loading ? (
+          <div className="flex items-center justify-center h-full text-gray-400">Loading chart...</div>
+        ) : !data?.chartData?.length ? (
+          <div className="flex items-center justify-center h-full text-gray-400">No activity data available</div>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data.chartData}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="date" tick={{fontSize: 12}} />
+              <YAxis allowDecimals={false} tick={{fontSize: 12}} />
+              <Tooltip 
+                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+              />
+              <Bar dataKey="requests" fill="#6CA651" radius={[4, 4, 0, 0]} barSize={40} name="Actions" />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </div>
   );

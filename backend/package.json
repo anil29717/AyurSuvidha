@@ -1,5 +1,5 @@
 {
-  "name": "ayurai-backend",
+  "name": "ayusuvidha-backend",
   "version": "0.1.0",
   "private": true,
   "main": "dist/server.js",
@@ -16,6 +16,7 @@
     "cloudinary": "^2.5.0",
     "compression": "^1.7.5",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^4.19.0",
     "express-rate-limit": "^7.2.0",
     "firebase-admin": "^13.0.0",

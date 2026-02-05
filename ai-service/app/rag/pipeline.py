@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Tuple
 import os
 import google.generativeai as genai
+from groq import Groq
 from dotenv import load_dotenv
 
 from ..core.embeddings import embed_texts
@@ -10,10 +11,13 @@ from ..nlp.preprocessing import clean_text, simple_ayur_split
 # Load .env file
 load_dotenv()
 
-# Configure Gemini
+# Configure LLM Providers
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
+
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+groq_client = Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
 
 def index_document(
     doc_id: str,
@@ -55,7 +59,7 @@ def build_prompt(query: str, context_docs: List[str], metadatas: List[Dict[str, 
     Construct a system-style prompt for an LLM.
     """
     intro = (
-        "You are AyurAI, an assistant grounded in classical Ayurvedic texts. "
+        "You are AyuSuvidha, an assistant grounded in classical Ayurvedic texts. "
         "Use the provided context to answer the user's question with clear, safe guidance. "
         "Always remind users that this is not a substitute for a licensed physician.\n\n"
     )
@@ -76,22 +80,39 @@ def build_prompt(query: str, context_docs: List[str], metadatas: List[Dict[str, 
 
 def generate_answer(prompt: str) -> str:
     """
-    Generate answer using Gemini API if available, otherwise fall back to heuristic.
+    Generate answer using Groq (Llama 3) if available, then Gemini, else fallback.
     """
-    if not GEMINI_API_KEY:
-        return (
-            "Gemini API Key is missing. Please set GEMINI_API_KEY environment variable. "
-            "I have retrieved relevant Ayurvedic context from the knowledge base. "
-            "Here is the context summary:\n\n"
-            f"{prompt[:900]}..."
-        )
+    # 1. Try Groq (Llama-3-70b is fast and good)
+    if groq_client:
+        try:
+            chat_completion = groq_client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt,
+                    }
+                ],
+                model="llama-3.3-70b-versatile",
+            )
+            return chat_completion.choices[0].message.content
+        except Exception as e:
+            print(f"Groq API Error: {e}")
+            # Fall through to Gemini if Groq fails
 
-    try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        return f"Error communicating with Gemini API: {str(e)}"
+    # 2. Try Gemini
+    if GEMINI_API_KEY:
+        try:
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            response = model.generate_content(prompt)
+            return response.text
+        except Exception as e:
+            return f"Error communicating with Gemini API: {str(e)}"
+    
+    return (
+        "No active LLM provider found (Groq or Gemini). Please set GROQ_API_KEY or GEMINI_API_KEY. "
+        "Here is the context summary:\n\n"
+        f"{prompt[:900]}..."
+    )
 
 
 def extract_citations(result: Dict[str, Any]) -> List[Dict[str, Any]]:

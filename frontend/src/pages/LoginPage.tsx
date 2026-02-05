@@ -23,7 +23,12 @@ export function LoginPage() {
       const { token, user } = res.data;
       
       localStorage.setItem('token', token);
-      dispatch(setAuth({ isAuthenticated: true, role: user.role, user }));
+      dispatch(setAuth({ 
+        isAuthenticated: true, 
+        role: user.role, 
+        userId: user.id,
+        displayName: user.name 
+      }));
       
       if (user.role === 'admin' || user.role === 'super_admin') {
         navigate('/admin');
@@ -51,7 +56,7 @@ export function LoginPage() {
 
         <h1 className="text-3xl font-serif font-bold text-center text-ayur-dark mb-2">Welcome Back</h1>
         <p className="text-sm text-ayur-muted text-center mb-8">
-          Sign in to continue your journey with AyurAI.
+          Sign in to continue your journey with AyuSuvidha.
         </p>
 
         {error && (
@@ -93,7 +98,7 @@ export function LoginPage() {
         </form>
 
         <p className="mt-8 text-sm text-ayur-muted text-center">
-          New to AyurAI?{' '}
+          New to AyuSuvidha?{' '}
           <Link to="/register" className="text-ayur-primary font-bold hover:underline">
             Create an account
           </Link>

@@ -54,10 +54,10 @@ export const KnowledgeBasePage: React.FC = () => {
           <FaArrowLeft /> Back to Admin
         </Link>
 
-        <h1 className="text-3xl font-heading font-bold text-ayur-dark mb-2 flex items-center gap-3">
-          <FaUpload className="text-ayur-primary" /> Upload Knowledge
-        </h1>
-        <p className="text-ayur-muted mb-8 text-sm">Add PDF or Text documents to expand AyurAI's wisdom.</p>
+        <div className="bg-gradient-to-r from-ayur-primary to-emerald-600 rounded-2xl p-8 text-white mb-8 shadow-lg">
+          <h1 className="text-3xl font-heading font-bold mb-2">Knowledge Base</h1>
+          <p className="opacity-90">Add PDF or Text documents to expand AyuSuvidha's wisdom.</p>
+        </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

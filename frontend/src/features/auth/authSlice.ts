@@ -6,11 +6,13 @@ interface AuthState {
   isAuthenticated: boolean;
   role: UserRole;
   displayName?: string;
+  userId?: string;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  role: null
+  role: null,
+  userId: undefined
 };
 
 const authSlice = createSlice({
@@ -19,16 +21,18 @@ const authSlice = createSlice({
   reducers: {
     setAuth(
       state,
-      action: PayloadAction<{ isAuthenticated: boolean; role: UserRole; displayName?: string }>
+      action: PayloadAction<{ isAuthenticated: boolean; role: UserRole; displayName?: string; userId?: string }>
     ) {
       state.isAuthenticated = action.payload.isAuthenticated;
       state.role = action.payload.role;
       state.displayName = action.payload.displayName;
+      state.userId = action.payload.userId;
     },
     logout(state) {
       state.isAuthenticated = false;
       state.role = null;
       state.displayName = undefined;
+      state.userId = undefined;
     }
   }
 });

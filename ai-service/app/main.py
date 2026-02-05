@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import Any, Dict, List, Optional
 import io
+import os
 import pypdf
 
 from .core.embeddings import MODEL_NAME, embed_texts
@@ -71,7 +72,7 @@ class ProcessDocRequest(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-app = FastAPI(title="AyurAI - AI Service", version="0.2.0")
+app = FastAPI(title="AyuSuvidha - AI Service", version="0.2.0")
 
 
 @app.post("/api/v1/ai/symptom-check")
@@ -111,18 +112,28 @@ async def get_detox_api() -> Dict[str, Any]:
 async def _warmup() -> None:
     # Touch model and collection so first request is faster.
     _ = get_collection()
-    _ = embed_texts(["warming up AyurAI embeddings"])
+    _ = embed_texts(["warming up AyuSuvidha embeddings"])
 
 
 @app.get("/api/v1/ai/model-status")
 async def model_status() -> Dict[str, Any]:
     col = get_collection()
     count = col.count()
+    
+    # Determine active provider
+    provider = "none"
+    if os.environ.get("GROQ_API_KEY"):
+        provider = "groq (llama-3)"
+    elif os.environ.get("GEMINI_API_KEY"):
+        provider = "gemini"
+
     return {
         "service": "ai",
         "status": "ready",
         "embeddings_model": MODEL_NAME,
         "vectors": count,
+        "llm_provider": provider,
+        "llm_connected": provider != "none"
     }
 
 
