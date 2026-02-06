@@ -13,7 +13,7 @@ let activeUsers = 0;
 export function initSocket(httpServer: HttpServer) {
   io = new Server(httpServer, {
     cors: {
-      origin: 'http://localhost:2020',
+      origin: process.env.FRONTEND_URL || 'http://localhost:2020',
       methods: ['GET', 'POST'],
       credentials: true
     }

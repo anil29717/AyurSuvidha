@@ -1,10 +1,11 @@
 from functools import lru_cache
 from typing import Any, Dict, List
 
+import os
 import chromadb
 from chromadb.api.models.Collection import Collection
 
-CHROMA_DIR = "chroma_db"
+CHROMA_DIR = os.environ.get("CHROMA_DB_PATH", "chroma_db")
 DEFAULT_COLLECTION = "ayur_texts"
 
 

@@ -4,4 +4,7 @@ sentence-transformers==3.0.1
 chromadb>=0.5.5
 pypdf
 pydantic==2.9.2
+google-generativeai
+groq
+python-dotenv
 

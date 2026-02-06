@@ -10,7 +10,7 @@ export function createApp() {
 
   app.use(
     cors({
-      origin: 'http://localhost:2020',
+      origin: process.env.FRONTEND_URL || 'http://localhost:2020',
       credentials: true
     })
   );

@@ -1,0 +1,51 @@
+services:
+  # AI Service (Python/FastAPI)
+  - type: web
+    name: ayusuvidha-ai
+    runtime: python
+    repo: https://github.com/your-username/your-repo-name # Render will auto-fill this when you connect
+    rootDir: ai-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: CHROMA_DB_PATH
+        value: /var/lib/chroma
+      - key: GEMINI_API_KEY
+        sync: false # User must enter this in dashboard
+      - key: GROQ_API_KEY
+        sync: false # Optional
+    disk:
+      name: chroma-data
+      mountPath: /var/lib/chroma
+      sizeGB: 1
+
+  # Backend Service (Node.js)
+  - type: web
+    name: ayusuvidha-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: AI_SERVICE_URL
+        fromService:
+          type: web
+          name: ayusuvidha-ai
+          property: url
+      - key: FRONTEND_URL
+        sync: false # Set this after Vercel deploy
+
+databases:
+  - name: chroma-data
+    plan: starter # Persistent disk requires a paid plan or specific setup, actually 'disks' are defined in services, not here.
+    # Disks are defined in the service definition above.
