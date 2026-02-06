@@ -7,4 +7,5 @@ pydantic==2.9.2
 google-generativeai
 groq
 python-dotenv
+python-multipart
 
