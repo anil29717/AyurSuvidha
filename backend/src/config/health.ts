@@ -46,6 +46,9 @@ export async function checkMongo(conn?: Connection): Promise<ServiceStatus> {
   }
   const start = Date.now();
   try {
+    if (!conn.db) {
+      return { status: 'down', detail: 'Mongo DB instance not available' };
+    }
     await conn.db.admin().ping();
     const latencyMs = Date.now() - start;
     return { status: 'healthy', latencyMs };
