@@ -59,7 +59,7 @@ def build_prompt(query: str, context_docs: List[str], metadatas: List[Dict[str, 
     Construct a system-style prompt for an LLM.
     """
     intro = (
-        "You are AyuSuvidha, an assistant grounded in classical Ayurvedic texts. "
+        "You are AyurSuvidha, an assistant grounded in classical Ayurvedic texts. "
         "Use the provided context to answer the user's question with clear, safe guidance. "
         "Always remind users that this is not a substitute for a licensed physician.\n\n"
     )

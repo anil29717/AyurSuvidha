@@ -1,94 +1,161 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaLeaf, FaSpa, FaUserMd } from 'react-icons/fa';
+import { FaLeaf, FaSpa, FaUserMd, FaSearch, FaShieldAlt, FaArrowRight } from 'react-icons/fa';
+import heroImage from '../assets/hero-ayurveda.jpg';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-ayur-bg text-ayur-text flex flex-col font-body">
-      <header className="px-8 py-6 flex items-center justify-between bg-white shadow-sm">
-        <div className="flex items-center gap-2">
-           <FaLeaf className="text-ayur-primary text-2xl" />
-           <div className="font-heading font-bold text-xl tracking-wide text-ayur-dark">AyuSuvidha</div>
-        </div>
-        <div className="space-x-4">
-          <Link to="/login" className="px-5 py-2 rounded-full border border-ayur-primary text-ayur-primary font-semibold hover:bg-ayur-primary hover:text-white transition">
-            Login
-          </Link>
-          <Link to="/register" className="px-5 py-2 rounded-full bg-ayur-primary text-white font-semibold shadow-md hover:bg-ayur-dark transition">
-            Get Started
-          </Link>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#FDFBF7] text-[#1A4D2E] font-body">
+      <Header />
 
-      <main className="flex-1 flex flex-col items-center justify-center px-4 text-center relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-64 h-64 bg-ayur-secondary/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-ayur-primary/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
-
-        <motion.h1
-          className="text-5xl md:text-6xl font-serif font-bold mb-6 max-w-4xl text-ayur-dark leading-tight"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          Ancient Wisdom,<br/> <span className="text-ayur-primary">Modern Intelligence.</span>
-        </motion.h1>
+      <main className="flex-1">
         
-        <motion.p
-          className="max-w-2xl text-lg text-ayur-muted mb-10 leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          Discover your unique constitution (Dosha), find natural remedies, and consult with our 
-          AI assistant grounded in classical Ayurvedic texts.
-        </motion.p>
-        
-        <motion.div
-          className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Link
-            to="/chat"
-            className="px-8 py-4 rounded-full bg-ayur-primary text-white font-heading font-semibold shadow-lg hover:bg-ayur-dark hover:shadow-xl transition flex items-center gap-2"
-          >
-            <FaUserMd /> Start Consultation
-          </Link>
-          <Link
-            to="/dosha-quiz"
-            className="px-8 py-4 rounded-full bg-white text-ayur-dark border border-ayur-secondary font-heading font-semibold shadow-md hover:bg-ayur-light transition flex items-center gap-2"
-          >
-            <FaSpa /> Take Dosha Quiz
-          </Link>
-        </motion.div>
+        {/* Hero Section */}
+        <section className="px-8 pt-12 pb-20 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div className="text-left space-y-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 bg-[#E8F3EB] px-4 py-2 rounded-full text-sm font-medium text-[#1A4D2E]"
+            >
+              <FaSpa className="text-sm" /> AI-Powered Ayurvedic Wellness
+            </motion.div>
 
-        {/* Feature Cards Preview */}
-        <motion.div 
-           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-5xl w-full px-4"
-           initial={{ opacity: 0, y: 40 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ delay: 0.4 }}
-        >
+            <motion.h1
+              className="text-5xl md:text-6xl font-serif font-bold leading-tight text-[#1A4D2E]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              Ancient Wisdom, <br/> Modern Intelligence.
+            </motion.h1>
+            
+            <motion.p
+              className="text-lg text-gray-600 leading-relaxed max-w-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Discover your unique constitution, find natural remedies, and consult with our 
+              AI assistant grounded in classical Ayurvedic texts.
+            </motion.p>
+            
+            <motion.div
+              className="flex flex-wrap gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link
+                to="/chat"
+                className="px-8 py-4 rounded-full bg-[#1A4D2E] text-white font-heading font-semibold shadow-lg hover:bg-[#143d23] transition flex items-center gap-2"
+              >
+                <FaUserMd /> Start Consultation <FaArrowRight className="text-sm" />
+              </Link>
+              <Link
+                to="/dosha-quiz"
+                className="px-8 py-4 rounded-full bg-white text-[#1A4D2E] border border-gray-200 font-heading font-semibold shadow-sm hover:shadow-md transition flex items-center gap-2"
+              >
+                <FaSpa /> Take Dosha Quiz
+              </Link>
+            </motion.div>
+          </div>
+
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <img 
+              src={heroImage} 
+              alt="Ayurvedic Wellness" 
+              className="rounded-3xl shadow-2xl w-full object-cover h-[500px]"
+            />
+            
+            <div className="absolute bottom-8 left-8 bg-white p-4 rounded-xl shadow-lg flex items-center gap-4 max-w-xs animate-fade-in-up">
+              <div className="bg-[#E8F3EB] p-3 rounded-full text-[#1A4D2E]">
+                <FaShieldAlt className="text-xl" />
+              </div>
+              <div>
+                <p className="font-bold text-[#1A4D2E] text-sm">Trusted by Experts</p>
+                <p className="text-xs text-gray-500">Verified Ayurvedic Sources</p>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="py-16 bg-[#FDFBF7] border-y border-[#E8F3EB]">
+          <div className="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { title: "Personalized Care", desc: "Tailored lifestyle & diet plans based on your Prakriti.", icon: "🧘‍♀️" },
-              { title: "Herbal Wisdom", desc: "Access a vast database of herbs and their healing properties.", icon: "🌿" },
-              { title: "Symptom Checker", desc: "Instant analysis of imbalances with Ayurvedic diagnosis.", icon: "🔍" }
-            ].map((f, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition text-left">
-                  <div className="text-4xl mb-4">{f.icon}</div>
-                  <h3 className="font-heading font-bold text-lg text-ayur-dark mb-2">{f.title}</h3>
-                  <p className="text-sm text-ayur-muted">{f.desc}</p>
+              { label: "Years of Wisdom", value: "5000+" },
+              { label: "Herbal Remedies", value: "300+" },
+              { label: "Users Helped", value: "50K+" },
+              { label: "Satisfaction", value: "98%" },
+            ].map((stat, i) => (
+              <div key={i}>
+                <div className="text-4xl font-serif font-bold text-[#1A4D2E] mb-2">{stat.value}</div>
+                <div className="text-gray-500 text-sm">{stat.label}</div>
               </div>
             ))}
-        </motion.div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-24 px-8 max-w-7xl mx-auto" id="features">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">What We Offer</span>
+            <h2 className="text-4xl font-serif font-bold text-[#1A4D2E] mt-4">Holistic Healing, Reimagined</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+              Combining millennia of Ayurvedic knowledge with cutting-edge AI to deliver personalized wellness guidance.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Personalized Care", desc: "Tailored lifestyle & diet plans based on your unique Prakriti constitution.", icon: <FaUserMd /> },
+              { title: "Herbal Wisdom", desc: "Access a vast database of classical herbs and their healing properties.", icon: <FaLeaf /> },
+              { title: "Symptom Checker", desc: "Instant Ayurvedic analysis of imbalances with intelligent diagnosis.", icon: <FaSearch /> }
+            ].map((f, i) => (
+              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition group">
+                <div className="w-12 h-12 bg-[#E8F3EB] rounded-full flex items-center justify-center text-[#1A4D2E] text-xl mb-6 group-hover:bg-[#1A4D2E] group-hover:text-white transition">
+                  {f.icon}
+                </div>
+                <h3 className="font-heading font-bold text-xl text-[#1A4D2E] mb-3">{f.title}</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="px-8 pb-24">
+          <div className="max-w-7xl mx-auto bg-[#1A4D2E] rounded-[3rem] p-12 md:p-24 text-center text-white relative overflow-hidden">
+             {/* Decorative background blur */}
+            <div className="absolute top-0 left-0 w-full h-full bg-white/5 pointer-events-none" />
+            
+            <div className="relative z-10">
+              <FaLeaf className="mx-auto text-4xl mb-6 text-white/80" />
+              <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">Begin Your Healing Journey</h2>
+              <p className="text-white/80 max-w-2xl mx-auto mb-10 text-lg">
+                Whether you seek balance, relief, or deeper understanding of your body's needs — AyurSuvidha is your trusted companion.
+              </p>
+              <Link 
+                to="/register" 
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#1A4D2E] rounded-full font-bold hover:bg-gray-100 transition"
+              >
+                Get Started Free <FaArrowRight />
+              </Link>
+            </div>
+          </div>
+        </section>
 
       </main>
       
-      <footer className="bg-ayur-dark text-white py-8 text-center text-sm">
-        <p>&copy; {new Date().getFullYear()} AyuSuvidha. Bridging ancient wisdom with modern technology.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-# AyuSuvidha - Project Plan & Todo List
+# AyurSuvidha - Project Plan & Todo List
 
 ## Phase 1: Core Setup (Completed)
 - [x] Monorepo structure setup
@@ -21,6 +21,6 @@
 
 ## Phase 4: Polish & Deploy
 - [ ] Error handling improvements
-- [ ] UI/UX refinements (AyuSuvidha branding)
+- [ ] UI/UX refinements (AyurSuvidha branding)
 - [ ] Dockerization
 - [ ] Cloud Deployment

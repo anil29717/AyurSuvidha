@@ -128,7 +128,7 @@ export function ChatPage() {
             <FaLeaf />
           </div>
           <div>
-            <h1 className="font-heading font-bold text-ayur-dark text-lg leading-tight">AyuSuvidha Assistant</h1>
+            <h1 className="font-heading font-bold text-ayur-dark text-lg leading-tight">AyurSuvidha Assistant</h1>
             <div className="flex items-center gap-2 text-xs text-green-600">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               <span>Online & Ready</span>
@@ -155,7 +155,7 @@ export function ChatPage() {
                 <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 text-2xl">
                   <FaLeaf />
                 </div>
-                <h3 className="text-lg font-bold text-ayur-dark mb-2">Welcome to AyuSuvidha</h3>
+                <h3 className="text-lg font-bold text-ayur-dark mb-2">Welcome to AyurSuvidha</h3>
                 <p className="text-sm text-gray-500 mb-6">
                   Your personal Ayurvedic health companion. Ask about doshas, remedies, or upload texts for analysis.
                 </p>
@@ -269,7 +269,7 @@ export function ChatPage() {
               </div>
             </form>
             <p className="text-[10px] text-center text-ayur-muted mt-3">
-              AyuSuvidha provides wellness suggestions based on texts. Consult a doctor for medical issues.
+              AyurSuvidha provides wellness suggestions based on texts. Consult a doctor for medical issues.
             </p>
           </div>
         </div>

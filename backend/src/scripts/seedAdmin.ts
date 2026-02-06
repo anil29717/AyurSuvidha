@@ -8,7 +8,7 @@ const seedAdmin = async () => {
     await connectMongo();
     console.log('Connected to MongoDB');
 
-    const adminEmail = 'admin@ayusuvidha.com';
+    const adminEmail = 'admin@ayursuvidha.com';
     const existingAdmin = await User.findOne({ email: adminEmail });
 
     if (existingAdmin) {
@@ -19,7 +19,7 @@ const seedAdmin = async () => {
       existingAdmin.role = 'admin';
       await existingAdmin.save();
       console.log('Admin user password and role updated successfully');
-      console.log('Email: admin@ayusuvidha.com');
+      console.log('Email: admin@ayursuvidha.com');
       console.log('Password: admin123');
       return;
     }
@@ -35,7 +35,7 @@ const seedAdmin = async () => {
 
     await adminUser.save();
     console.log('Admin user created successfully');
-    console.log('Email: admin@ayusuvidha.com');
+    console.log('Email: admin@ayursuvidha.com');
     console.log('Password: admin123');
 
   } catch (error) {

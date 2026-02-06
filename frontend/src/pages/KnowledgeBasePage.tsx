@@ -56,7 +56,7 @@ export const KnowledgeBasePage: React.FC = () => {
 
         <div className="bg-gradient-to-r from-ayur-primary to-emerald-600 rounded-2xl p-8 text-white mb-8 shadow-lg">
           <h1 className="text-3xl font-heading font-bold mb-2">Knowledge Base</h1>
-          <p className="opacity-90">Add PDF or Text documents to expand AyuSuvidha's wisdom.</p>
+          <p className="opacity-90">Add PDF or Text documents to expand AyurSuvidha's wisdom.</p>
         </div>
 
         <motion.div 

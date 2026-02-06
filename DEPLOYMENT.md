@@ -1,4 +1,4 @@
-# AyuSuvidha Deployment Guide
+# AyurSuvidha Deployment Guide
 
 This guide will help you deploy the Frontend to **Vercel** and the Backend & AI Service to **Render**.
 
@@ -37,7 +37,7 @@ To keep your data, you must either:
 - **Size**: 1 GB is usually enough.
 
 8.  **Deploy**.
-9.  **Copy the Service URL** (e.g., `https://ayusuvidha-ai.onrender.com`).
+9.  **Copy the Service URL** (e.g., `https://ayursuvidha-ai.onrender.com`).
 
 ---
 
@@ -54,10 +54,10 @@ To keep your data, you must either:
     - `MONGO_URI`: *your_mongodb_atlas_uri*
     - `REDIS_URL`: *your_redis_url*
     - `JWT_SECRET`: *generate_a_secure_secret*
-    - `AI_SERVICE_URL`: *The URL from Step 2* (e.g., `https://ayusuvidha-ai.onrender.com`)
-    - `FRONTEND_URL`: *The URL you WILL get from Vercel* (e.g., `https://ayusuvidha.vercel.app`) - *You can update this later*
+    - `AI_SERVICE_URL`: *The URL from Step 2* (e.g., `https://ayursuvidha-ai.onrender.com`)
+    - `FRONTEND_URL`: *The URL you WILL get from Vercel* (e.g., `https://ayursuvidha.vercel.app`) - *You can update this later*
 8.  **Deploy**.
-9.  **Copy the Service URL** (e.g., `https://ayusuvidha-backend.onrender.com`).
+9.  **Copy the Service URL** (e.g., `https://ayursuvidha-backend.onrender.com`).
 
 ---
 
@@ -67,9 +67,9 @@ To keep your data, you must either:
 3.  **Root Directory**: `frontend`
 4.  **Framework Preset**: Vite
 5.  **Environment Variables**:
-    - `VITE_API_URL`: *The URL from Step 3* + `/api/v1` (e.g., `https://ayusuvidha-backend.onrender.com/api/v1`)
+    - `VITE_API_URL`: *The URL from Step 3* + `/api/v1` (e.g., `https://ayursuvidha-backend.onrender.com/api/v1`)
 6.  **Deploy**.
-7.  **Copy the Deployment URL** (e.g., `https://ayusuvidha.vercel.app`).
+7.  **Copy the Deployment URL** (e.g., `https://ayursuvidha.vercel.app`).
 
 ---
 

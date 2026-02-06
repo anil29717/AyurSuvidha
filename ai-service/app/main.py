@@ -73,7 +73,7 @@ class ProcessDocRequest(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-app = FastAPI(title="AyuSuvidha - AI Service", version="0.2.0")
+app = FastAPI(title="AyurSuvidha - AI Service", version="0.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -121,7 +121,7 @@ async def get_detox_api() -> Dict[str, Any]:
 async def _warmup() -> None:
     # Touch model and collection so first request is faster.
     _ = get_collection()
-    _ = embed_texts(["warming up AyuSuvidha embeddings"])
+    _ = embed_texts(["warming up AyurSuvidha embeddings"])
 
 
 @app.get("/api/v1/ai/model-status")

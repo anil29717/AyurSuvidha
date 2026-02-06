@@ -1,10 +1,10 @@
-# AyuSuvidha - Ayurvedic Intelligence Assistant
+# AyurSuvidha - Ayurvedic Intelligence Assistant
 
-AyuSuvidha is an AI-powered Ayurvedic health assistant that provides personalized wellness recommendations based on classical Ayurvedic texts (Charaka Samhita, Sushruta Samhita, etc.) using RAG (Retrieval Augmented Generation).
+AyurSuvidha is an AI-powered Ayurvedic health assistant that provides personalized wellness recommendations based on classical Ayurvedic texts (Charaka Samhita, Sushruta Samhita, etc.) using RAG (Retrieval Augmented Generation).
 
 ## Features
 - **AI Chatbot**: Ask questions about Doshas, remedies, and lifestyle.
-- **RAG Knowledge Base**: Upload PDF/Text documents to expand AyuSuvidha's knowledge.
+- **RAG Knowledge Base**: Upload PDF/Text documents to expand AyurSuvidha's knowledge.
 - **Admin Dashboard**: Manage users, view system logs, and monitor analytics.
 - **Real-time Updates**: Live notifications and status tracking.
 
@@ -24,10 +24,10 @@ AyuSuvidha is an AI-powered Ayurvedic health assistant that provides personalize
 
 ### Installation
 
-1. **Clone the repository**
+1.27. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/ayusuvidha.git
-   cd ayusuvidha
+   git clone https://github.com/yourusername/ayursuvidha.git
+   cd ayursuvidha
    ```
 
 2. **Backend Setup**

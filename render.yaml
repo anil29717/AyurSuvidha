@@ -1,7 +1,7 @@
 services:
   # AI Service (Python/FastAPI)
   - type: web
-    name: ayusuvidha-ai
+    name: ayursuvidha-ai
     runtime: python
     repo: https://github.com/your-username/your-repo-name # Render will auto-fill this when you connect
     rootDir: ai-service
@@ -23,7 +23,7 @@ services:
 
   # Backend Service (Node.js)
   - type: web
-    name: ayusuvidha-backend
+    name: ayursuvidha-backend
     runtime: node
     rootDir: backend
     buildCommand: npm install && npm run build
@@ -40,7 +40,7 @@ services:
       - key: AI_SERVICE_URL
         fromService:
           type: web
-          name: ayusuvidha-ai
+          name: ayursuvidha-ai
           property: url
       - key: FRONTEND_URL
         sync: false # Set this after Vercel deploy
