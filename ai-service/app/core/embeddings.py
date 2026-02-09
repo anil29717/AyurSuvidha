@@ -12,6 +12,7 @@ if GEMINI_API_KEY:
 
 # Fallback model if no API key (will consume RAM)
 FALLBACK_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+MODEL_NAME = "models/text-embedding-004" if GEMINI_API_KEY else FALLBACK_MODEL_NAME
 
 @lru_cache(maxsize=1)
 def get_local_model():

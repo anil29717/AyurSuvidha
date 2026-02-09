@@ -9,4 +9,4 @@ groq
 python-dotenv
 python-multipart
 # Optional fallback if Gemini fails
-sentence-transformers==3.0.1
+# sentence-transformers==3.0.1
