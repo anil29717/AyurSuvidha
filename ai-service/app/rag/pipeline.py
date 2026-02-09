@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Tuple
 import os
-import google.generativeai as genai
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -13,8 +12,14 @@ load_dotenv()
 
 # Configure LLM Providers
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+gemini_client = None
+
 if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+    try:
+        from google import genai
+        gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+    except ImportError:
+        print("google-genai package not found. Install it with pip install google-genai")
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 groq_client = Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
@@ -100,10 +105,12 @@ def generate_answer(prompt: str) -> str:
             # Fall through to Gemini if Groq fails
 
     # 2. Try Gemini
-    if GEMINI_API_KEY:
+    if gemini_client:
         try:
-            model = genai.GenerativeModel('gemini-1.5-flash')
-            response = model.generate_content(prompt)
+            response = gemini_client.models.generate_content(
+                model='gemini-1.5-flash',
+                contents=prompt
+            )
             return response.text
         except Exception as e:
             return f"Error communicating with Gemini API: {str(e)}"

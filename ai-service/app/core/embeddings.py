@@ -1,14 +1,20 @@
 from typing import List
 import os
-import google.generativeai as genai
 from functools import lru_cache
 
 # We will prefer Gemini Embeddings if available because it's an API call (Zero RAM overhead)
 # instead of loading a heavy local model like SentenceTransformer (PyTorch) which causes OOM on free tier.
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+client = None
+
 if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+    try:
+        from google import genai
+        from google.genai import types
+        client = genai.Client(api_key=GEMINI_API_KEY)
+    except ImportError:
+        print("google-genai package not found. Install it with pip install google-genai")
 
 # Fallback model if no API key (will consume RAM)
 FALLBACK_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
@@ -30,19 +36,20 @@ def embed_texts(texts: List[str]) -> List[List[float]]:
         return []
 
     # 1. Try Gemini API
-    if GEMINI_API_KEY:
+    if client:
         try:
             # Gemini batch embedding
-            # model="models/text-embedding-004" is the latest, or "models/embedding-001"
-            result = genai.embed_content(
+            # model="models/text-embedding-004" is the latest
+            response = client.models.embed_content(
                 model="models/text-embedding-004",
-                content=texts,
-                task_type="retrieval_document",
-                title=None
+                contents=texts,
+                config=types.EmbedContentConfig(
+                    task_type="RETRIEVAL_DOCUMENT"
+                )
             )
-            # result['embedding'] is a list of lists if input is a list
-            if 'embedding' in result:
-                return result['embedding']
+            # response.embeddings is a list of EmbedContentResponse, each has .values (list[float])
+            if response and response.embeddings:
+                return [e.values for e in response.embeddings]
         except Exception as e:
             print(f"Gemini Embedding API Error: {e}. Falling back to local model (WARNING: High RAM usage).")
     
