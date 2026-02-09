@@ -9,25 +9,27 @@ export function createApp() {
   const app = express();
 
   const frontendUrl = process.env.FRONTEND_URL;
-  const allowedOrigins = [
+  const allowedOrigins: string[] = [
     'http://localhost:2020', 
     'http://localhost:5173',
-    'https://ayursuvidha.in',
-    frontendUrl
+    'https://ayursuvidha.in'
   ];
 
-  try {
-    if (frontendUrl.startsWith('http')) {
-      const url = new URL(frontendUrl);
-      const hostname = url.hostname;
-      if (hostname.startsWith('www.')) {
-        allowedOrigins.push(frontendUrl.replace('www.', ''));
-      } else {
-        allowedOrigins.push(frontendUrl.replace('://', '://www.'));
+  if (frontendUrl) {
+    allowedOrigins.push(frontendUrl);
+    try {
+      if (frontendUrl.startsWith('http')) {
+        const url = new URL(frontendUrl);
+        const hostname = url.hostname;
+        if (hostname.startsWith('www.')) {
+          allowedOrigins.push(frontendUrl.replace('www.', ''));
+        } else {
+          allowedOrigins.push(frontendUrl.replace('://', '://www.'));
+        }
       }
+    } catch (e) {
+      // ignore invalid URLs
     }
-  } catch (e) {
-    // ignore invalid URLs
   }
 
   app.use(
