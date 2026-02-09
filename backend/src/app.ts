@@ -8,9 +8,31 @@ import { router } from './routes';
 export function createApp() {
   const app = express();
 
+  const frontendUrl = process.env.FRONTEND_URL;
+  const allowedOrigins = [
+    'http://localhost:2020', 
+    'http://localhost:5173',
+    'https://ayursuvidha.in',
+    frontendUrl
+  ];
+
+  try {
+    if (frontendUrl.startsWith('http')) {
+      const url = new URL(frontendUrl);
+      const hostname = url.hostname;
+      if (hostname.startsWith('www.')) {
+        allowedOrigins.push(frontendUrl.replace('www.', ''));
+      } else {
+        allowedOrigins.push(frontendUrl.replace('://', '://www.'));
+      }
+    }
+  } catch (e) {
+    // ignore invalid URLs
+  }
+
   app.use(
     cors({
-      origin: process.env.FRONTEND_URL || 'http://localhost:2020',
+      origin: allowedOrigins,
       credentials: true
     })
   );
